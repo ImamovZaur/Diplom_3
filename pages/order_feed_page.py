@@ -40,6 +40,3 @@ class OrderFeedPage(BasePage):
     @allure.step('Получаем окно с информацией о заказе')
     def get_order_popup(self):
         return self.find(popup_order_history)
-
-    def wait_for_order_item(self, locator):
-        WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.XPATH, locator)))

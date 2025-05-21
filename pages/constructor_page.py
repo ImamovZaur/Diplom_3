@@ -91,6 +91,3 @@ class ConstructorPage(BasePage):
     @allure.step('Возвращает номер заказа')
     def get_modal_order_text(self):
         return self.get_element_text(modal_order)
-
-    def wait_for_order_item(self, locator):
-        WebDriverWait(self.browser, 10).until(EC.presence_of_element_located((By.XPATH, locator)))

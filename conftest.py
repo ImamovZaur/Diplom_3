@@ -15,8 +15,10 @@ def browser(request):
     driver = None
     if request.param == "chrome":
         driver = webdriver.Chrome()
+        driver.maximize_window()
     elif request.param == "firefox":
         driver = webdriver.Firefox()
+        driver.maximize_window()
     driver.get(URL)
     yield driver
     driver.quit()
@@ -49,11 +51,6 @@ def for_order(browser, create_and_delete_user):
     personal_account = PersonalAccountPage(browser)
     constructor = ConstructorPage(browser)
     yield response, email, password, auth, order_feed_page, personal_account, constructor
-
-@pytest.fixture()
-def for_recovery_password(browser):
-    recovery_page = PasswordRecoveryPage(browser)
-    yield recovery_page
 
 @pytest.fixture()
 def for_personal_account(browser, create_and_delete_user):

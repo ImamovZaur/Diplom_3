@@ -1,4 +1,5 @@
 import allure
+from data import ingredient_detail, ingredient_count, default_order_number
 from urls import LOGIN, FEED, URL
 
 
@@ -15,7 +16,7 @@ class TestConstructor:
         _, _, _, _, constructor, _ = for_constructor
         constructor.open()
         constructor.click_ingredient()
-        assert constructor.get_window_ingredient_detail() == "Детали ингредиента"
+        assert constructor.get_window_ingredient_detail() == ingredient_detail
 
     @allure.title('Окно Детали ингредиента закрывается кликом по крестику')
     def test_ingredient_popup_close(self, browser, for_constructor):
@@ -32,7 +33,7 @@ class TestConstructor:
         ingredient = constructor.get_ingredient()
         burger_constructor = constructor.get_burger_constructor()
         constructor.drag_and_drop_element(ingredient, burger_constructor)
-        assert constructor.get_ingredient_count() == "2"
+        assert constructor.get_ingredient_count() == ingredient_count
 
     @allure.step('Залогиненный пользователь может оформить заказ.')
     def test_user_can_place_order(self, browser, for_constructor):
@@ -42,4 +43,4 @@ class TestConstructor:
         constructor.create_burger_and_place_order()
         constructor.wait_loading_visibility(browser)
         constructor.wait_loading_invisibility(browser)
-        assert constructor.get_modal_order_text() != "9999"
+        assert constructor.get_modal_order_text() != default_order_number
